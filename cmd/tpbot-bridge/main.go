@@ -170,7 +170,7 @@ func (b *bridge) waitAlive(d time.Duration) error {
 func (b *bridge) session() error {
 	h := http.Header{}
 	h.Set("Authorization", "Bearer "+b.token)
-	h.Set(wire.WorkerIDHeader, b.id)
+	h.Set(wire.DeviceIDHeader, b.id)
 	ws, resp, err := websocket.DefaultDialer.Dial(b.url, h)
 	if err != nil {
 		if resp != nil {
