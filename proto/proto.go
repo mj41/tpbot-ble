@@ -1,5 +1,5 @@
 // Package proto is the BLE protocol between the TPBot micro:bit firmware
-// and its clients (the laptop tool, later Stack-chan). See readme.md.
+// and its clients (the laptop tool, later Stackchan). See readme.md.
 package proto
 
 const (

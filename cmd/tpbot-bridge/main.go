@@ -26,7 +26,7 @@ import (
 )
 
 // The car capability: the same names whether the car hangs off this bridge
-// or, later, off a Stack-chan. Documented in readme.md ("Car capability").
+// or, later, off a Stackchan. Documented in readme.md ("Car capability").
 var (
 	carCommands     = []string{"car_drive", "car_stop", "car_servo", "car_headlights", "car_sonar", "car_watchdog"}
 	carMeasurements = []string{"car_echo_us", "car_line_l", "car_line_r", "car_btn_a", "car_btn_b",
@@ -47,7 +47,7 @@ func main() {
 	server := flag.String("server", "ws://127.0.0.1:8780", "server base URL (ws:// or wss://)")
 	tokenFile := flag.String("token-file", filepath.Join(home, ".config/stackchan-server/robot-token"), "robot token file")
 	id := flag.String("id", "", "worker id (default: tpbot-<suffix of the BLE name>, e.g. tpbot-1a2b)")
-	with := flag.String("with", "", "id of the Stack-chan this car belongs to (Register label \"with\")")
+	with := flag.String("with", "", "id of the Stackchan this car belongs to (Register label \"with\")")
 	name := flag.String("name", "", "BLE name to connect to (default: first TPB-*)")
 	addr := flag.String("addr", "", "BLE address to connect to")
 	board := flag.String("board", "v1", "TPBot frame format: v1, v2 or both (see tpbot-ble readme)")
