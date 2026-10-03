@@ -1,13 +1,12 @@
 # tpbot-ble
 
-BLE control for an ELECFREAKS TPBot car with a micro:bit V2. The micro:bit firmware is a BLE peripheral: it drives the car and reports the car's raw sensors. Clients are `tpbot` (a Linux laptop tool) and, later, Stack-chan (an optional extension of its Embody Mode).
+BLE control for an ELECFREAKS TPBot car with a micro:bit V2. The micro:bit firmware is a BLE peripheral: it drives the car and reports the car's raw sensors. Its clients:
 
-Plan:
+- `tpbot`, a Linux laptop tool (here);
+- `tpbot-bridge` (here), which connects the car over the laptop's BLE to [sbot](https://github.com/mj41/sbot), an app server that manages a Stack-chan and the car together;
+- **Stack-chan itself**, as an optional extension of its Embody Mode: the [StackChan firmware fork](https://github.com/mj41/StackChan/tree/embody-mj41) has a BLE central for the car, so everything runs on the robot's one Wi-Fi connection. The car stays optional: most robots have none.
 
-1. micro:bit BLE from the laptop (`tpbot`), without the TPBot.
-2. The same from Stack-chan (ESP32-S3 BLE central).
-3. The micro:bit in the TPBot: motors, headlights, servos, sonar, line sensors.
-4. sbot (`../sbot`), an app server that manages Stack-chan and the car, first through `tpbot-bridge` on the laptop. Later Stack-chan takes the BLE link over, so everything runs on one Wi-Fi connection. The car stays optional.
+Part of [home-w42-eu](https://github.com/mj41/home-w42-eu), a local first, privacy first platform for a home, where the micro:bit is one light client.
 
 ## Build and flash
 
@@ -59,12 +58,14 @@ time: `ALLOW="AA:BB:…,CC:DD:…" make flash`, or one address per line in
 
 ## Bridge to sbot
 
-`tpbot-bridge` connects the car (BLE) to sbot (`../sbot`) as a `robot` worker of the stackchan-server wire protocol, with the `car_*` commands and telemetry listed in sbot's readme ("Car capability").
+`tpbot-bridge` connects the car (BLE) to [sbot](https://github.com/mj41/sbot) as a `robot` worker of the [device wire protocol](https://github.com/mj41/home-w42-eu/blob/main/docs/wire-protocol.md) (through the `wire` package of [stackchan-server](https://github.com/mj41/stackchan-server)), with the `car_*` commands and telemetry listed in sbot's readme, [Car capability](https://github.com/mj41/sbot#car-capability).
 
 ```bash
 make cli
 ./build/tpbot-bridge -with stackchan-0a1b2c3d4e50    # -server ws://127.0.0.1:8780 by default
 ```
+
+Or without cloning: `go install github.com/mj41/tpbot-ble/cmd/tpbot-bridge@latest`.
 
 - The worker id is `tpbot-<suffix of the BLE name>`, e.g. `tpbot-1a2b`. `-with` links the car to a Stack-chan, so browsers paired with it can drive the car. The bridge also logs a pairing URL for the car alone.
 - It forwards every state notification as telemetry (at most every 50 ms), and turns `car_*` commands into BLE commands.
@@ -101,7 +102,7 @@ State (14 bytes, little endian, format 2), notified on every change, after every
 
 | Byte | Field |
 |---|---|
-| 0 | format = 1 |
+| 0 | format = 2 |
 | 1 | seq (uint8, wraps) |
 | 2–5 | micro:bit uptime, ms |
 | 6–7 | sonar echo pulse, µs; 0 = no echo or sonar off (cm ≈ µs / 58) |
@@ -123,12 +124,19 @@ The sonar measures only while a client is connected.
 
 ## Status
 
-Works on a micro:bit V2.2 in a TPBot V1 (2026-10-01): BLE, state notifications, the watchdog stop, headlights, the sonar (a steady ≈18 cm to Stack-chan), and the line sensors. Motors: drive and stop work with V1 frames. After a stop, a lifted wheel coasts for a moment, with no motor sound and no force.
+Works on a micro:bit V2.2 in a TPBot V1 (2026-10-01/02), driven by `tpbot`, by `tpbot-bridge` and by Stack-chan: BLE, state notifications, the watchdog stop, headlights, the sonar (a steady ≈18 cm to Stack-chan), and the line sensors. Motors: drive and stop work with V1 frames. After a stop, a lifted wheel coasts for a moment, with no motor sound and no force.
 
 - **Start the TPBot with one press of its power button** (LEDs breathe green: standby, driven by the micro:bit). A second press starts its own line-tracking mode (rainbow LEDs), which drives the wheels by itself. A double press switches it off. ([ELECFREAKS guide](https://shop.elecfreaks.com/blogs/tutorials/tpbot-creative-programming-guide))
 
 - **Security:** an address allowlist (since 0.3.0, tested 2026-10-02: a refused laptop got no state and its drive was ignored). Bonding is still to do.
 - **Not covered yet:** the micro:bit's own sensors (accelerometer, magnetometer, microphone, temperature, logo touch), the TPBot V2 encoder commands, and the TPBot color sensor.
+
+## Related projects
+
+- [sbot](https://github.com/mj41/sbot): the app server with the cockpit (camera, joystick, safety stop) that drives the car; the `car_*` capability.
+- [StackChan fork, branch `embody-mj41`](https://github.com/mj41/StackChan/tree/embody-mj41): Stack-chan as the car's BLE central; enabling the car: step 8 of [SETUP.md](https://github.com/mj41/StackChan/blob/embody-mj41/firmware/main/apps/app_embody_mode/SETUP.md).
+- [stackchan-server](https://github.com/mj41/stackchan-server): the `wire` package the bridge uses.
+- [home-w42-eu](https://github.com/mj41/home-w42-eu): the platform this is part of. All the repos: [The repos today](https://github.com/mj41/home-w42-eu#the-repos-today).
 
 ## License
 
