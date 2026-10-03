@@ -3,8 +3,8 @@
 BLE control for an ELECFREAKS TPBot car with a micro:bit V2. The micro:bit firmware is a BLE peripheral: it drives the car and reports the car's raw sensors. Its clients:
 
 - `tpbot`, a Linux laptop tool (here);
-- `tpbot-bridge` (here), which connects the car over the laptop's BLE to [sbot](https://github.com/mj41/sbot), an app server that manages a Stackchan and the car together;
-- **Stackchan itself**, as an optional extension of its Embody Mode: the [StackChan firmware fork](https://github.com/mj41/StackChan/tree/embody-mj41) has a BLE central for the car, so everything runs on the robot's one Wi-Fi connection. The car stays optional: most robots have none.
+- **Stackchan itself**, the usual way, as an optional extension of its Embody Mode: the [StackChan firmware fork](https://github.com/mj41/StackChan/tree/embody-mj41) has a BLE central for the car, so everything runs on the robot's one Wi-Fi connection. The car stays optional: most robots have none.
+- `tpbot-bridge` (here), for a car out of the robot's BLE range: a laptop or a Raspberry Pi near the car connects it over its own BLE to [sbot](https://github.com/mj41/sbot), the app server that manages a Stackchan and the car together.
 
 Part of [home-w42-eu](https://github.com/mj41/home-w42-eu), a local first, privacy first platform for a home, where the micro:bit is one light client.
 
