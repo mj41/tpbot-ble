@@ -128,24 +128,24 @@ The sonar measures only while a client is connected.
 ## Hardware notes
 
 - **TPBot:** the board controller is at I2C `0x10` on the edge connector (P19/P20). The frames come from ELECFREAKS' MakeCode extension ([pxt-tpbot](https://github.com/elecfreaks/pxt-tpbot), `V1.ts`, `V2.ts`). The firmware sends V1 frames by default (see the next point). Line sensors are on P13/P14, sonar trigger on P16 and echo on P15.
-- **V1 or V2 board:** ELECFREAKS' extension sends both frame formats. Our TPBot is a **V1**: a V2-only headlight command did nothing (seen through Stackchan's camera, 2026-10-01). With both formats, its wheels kept turning after a stop, so the firmware sends V1 only by default. `tpbot board v2` or `tpbot-bridge -board v2` switches. The firmware also resends the motor values (stop included) every 200 ms, and leaves 2 ms between I2C frames.
+- **V1 or V2 board:** ELECFREAKS' extension sends both frame formats. Our TPBot is a **V1**: a V2-only headlight command did nothing (seen through Stackchan's camera). With both formats, its wheels kept turning after a stop, so the firmware sends V1 only by default. `tpbot board v2` or `tpbot-bridge -board v2` switches. The firmware also resends the motor values (stop included) every 200 ms, and leaves 2 ms between I2C frames.
 - **Flashing:** copy with `dd ... oflag=direct` (as `make flash` does). With `cp` + `sync`, DAPLink often wrote `FAIL.TXT` "The transfer timed out", and then the micro:bit had no program.
 - **Sonar timing** is done in hardware (TIMER1, GPIOTE channel 7, PPI channels 0–1, group 0), so BLE interrupts cannot change it. S113 keeps TIMER0, PPI channels 17–31 and groups 4–5.
 - **BLE callbacks** run in the SoftDevice interrupt. They only queue commands; the main loop does the I2C.
 
 ## Status
 
-Works on a micro:bit V2.2 in a TPBot V1 (2026-10-01/02), driven by `tpbot`, by `tpbot-bridge` and by Stackchan: BLE, state notifications, the watchdog stop, headlights, the sonar (a steady ≈18 cm to Stackchan), and the line sensors. Motors: drive and stop work with V1 frames. After a stop, a lifted wheel coasts for a moment, with no motor sound and no force.
+Works on a micro:bit V2.2 in a TPBot V1, driven by `tpbot`, by `tpbot-bridge` and by Stackchan: BLE, state notifications, the watchdog stop, headlights, the sonar (a steady ≈18 cm to Stackchan), and the line sensors. Motors: drive and stop work with V1 frames. After a stop, a lifted wheel coasts for a moment, with no motor sound and no force.
 
 - **Start the TPBot with one press of its power button** (LEDs breathe green: standby, driven by the micro:bit). A second press starts its own line-tracking mode (rainbow LEDs), which drives the wheels by itself. A double press switches it off. ([ELECFREAKS guide](https://shop.elecfreaks.com/blogs/tutorials/tpbot-creative-programming-guide))
 
-- **Security:** an address allowlist (since 0.3.0, tested 2026-10-02: a refused laptop got no state and its drive was ignored). Bonding is still to do.
+- **Security:** an address allowlist (a refused central gets no state and its commands are ignored). Bonding is still to do.
 - **Not covered yet:** the micro:bit's own sensors (accelerometer, magnetometer, microphone, temperature, logo touch), the TPBot V2 encoder commands, and the TPBot color sensor.
 
 ## Related projects
 
 - [sbot](https://github.com/mj41/sbot): the app server with the cockpit (camera, joystick, safety stop) that drives the car; the `car_*` capability.
-- [StackChan fork, branch `embody-mj41`](https://github.com/mj41/StackChan/tree/embody-mj41): Stackchan as the car's BLE central; enabling the car: step 8 of [SETUP.md](https://github.com/mj41/StackChan/blob/embody-mj41/firmware/main/apps/app_embody_mode/SETUP.md).
+- [StackChan fork, branch `embody-mj41`](https://github.com/mj41/StackChan/tree/embody-mj41): Stackchan as the car's BLE central; enabling the car: [SETUP.md, Optional: drive a TPBot car](https://github.com/mj41/StackChan/blob/embody-mj41/firmware/main/apps/app_embody_mode/SETUP.md#optional-drive-a-tpbot-car).
 - [stackchan-server](https://github.com/mj41/stackchan-server): the `wire` package the bridge uses.
 - [home-w42-eu](https://github.com/mj41/home-w42-eu): the platform this is part of. All the repos: [The repos today](https://github.com/mj41/home-w42-eu#the-repos-today).
 
