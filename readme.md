@@ -4,7 +4,7 @@ BLE control for an ELECFREAKS TPBot car with a micro:bit V2. The micro:bit firmw
 
 - `tpbot`, a Linux laptop tool (here);
 - **Stackchan itself**, the usual way, as an optional extension of its Embody Mode: the [StackChan firmware fork](https://github.com/mj41/StackChan/tree/embody-mj41) has a BLE central for the car, so everything runs on the robot's one Wi-Fi connection. The car stays optional: most robots have none.
-- `tpbot-bridge` (here), for a car out of the robot's BLE range: a laptop or a Raspberry Pi near the car connects it over its own BLE to [sbot](https://github.com/mj41/sbot), the app server that manages a Stackchan and the car together.
+- `tpbot-bridge` (here), for a car out of the robot's BLE range: a laptop or a Raspberry Pi near the car connects it over its own BLE to [s-w42-eu-sbot](https://github.com/mj41/s-w42-eu-sbot), the app server that manages a Stackchan and the car together.
 
 Part of [home-w42-eu](https://github.com/mj41/home-w42-eu), a local first, privacy first platform for a home, where the micro:bit is one light client.
 
@@ -69,7 +69,7 @@ time: `ALLOW="AA:BB:…,CC:DD:…" make flash`, or one address per line in
 
 ## Bridge to sbot
 
-`tpbot-bridge` connects the car (BLE) to [sbot](https://github.com/mj41/sbot) as a `robot` worker of the [device wire protocol](https://github.com/mj41/home-w42-eu/blob/main/docs/wire-protocol.md) (through the `wire` package of [stackchan-server](https://github.com/mj41/stackchan-server)), with the `car_*` commands and telemetry listed in sbot's readme, [Car capability](https://github.com/mj41/sbot#car-capability).
+`tpbot-bridge` connects the car (BLE) to [s-w42-eu-sbot](https://github.com/mj41/s-w42-eu-sbot) as a `robot` worker of the [device wire protocol](https://github.com/mj41/home-w42-eu/blob/main/docs/wire-protocol.md) (through the `wire` package of [s-w42-eu-raw](https://github.com/mj41/s-w42-eu-raw)), with the `car_*` commands and telemetry listed in sbot's readme, [Car capability](https://github.com/mj41/s-w42-eu-sbot#car-capability).
 
 ```bash
 make cli
@@ -144,9 +144,9 @@ Works on a micro:bit V2.2 in a TPBot V1, driven by `tpbot`, by `tpbot-bridge` an
 
 ## Related projects
 
-- [sbot](https://github.com/mj41/sbot): the app server with the cockpit (camera, joystick, safety stop) that drives the car; the `car_*` capability.
+- [s-w42-eu-sbot](https://github.com/mj41/s-w42-eu-sbot): the app server with the cockpit (camera, joystick, safety stop) that drives the car; the `car_*` capability.
 - [StackChan fork, branch `embody-mj41`](https://github.com/mj41/StackChan/tree/embody-mj41): Stackchan as the car's BLE central; enabling the car: [SETUP.md, Optional: drive a TPBot car](https://github.com/mj41/StackChan/blob/embody-mj41/firmware/main/apps/app_embody_mode/SETUP.md#optional-drive-a-tpbot-car).
-- [stackchan-server](https://github.com/mj41/stackchan-server): the `wire` package the bridge uses.
+- [s-w42-eu-raw](https://github.com/mj41/s-w42-eu-raw): the `wire` package the bridge uses.
 - [home-w42-eu](https://github.com/mj41/home-w42-eu): the platform this is part of. All the repos: [The repos today](https://github.com/mj41/home-w42-eu#the-repos-today).
 
 ## License

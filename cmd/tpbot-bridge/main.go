@@ -1,5 +1,5 @@
 // Command tpbot-bridge connects a TPBot micro:bit (BLE) to an Embody Mode
-// server such as sbot (WebSocket, stackchan-server wire protocol). The car
+// server such as sbot (WebSocket, s-w42-eu-raw wire protocol). The car
 // registers as a "robot" worker with the car_* commands and telemetry.
 package main
 
@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/mj41/stackchan-server/wire"
+	"github.com/mj41/s-w42-eu-raw/wire"
 	"github.com/mj41/tpbot-ble/client"
 	"github.com/mj41/tpbot-ble/proto"
 	"tinygo.org/x/bluetooth"

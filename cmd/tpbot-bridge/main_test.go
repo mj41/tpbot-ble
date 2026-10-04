@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/mj41/stackchan-server/wire"
+	"github.com/mj41/s-w42-eu-raw/wire"
 	"github.com/mj41/tpbot-ble/proto"
 )
 
