@@ -8,8 +8,8 @@ github.com/godbus/dbus/v5 v5.1.0/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5x
 github.com/gorilla/websocket v1.5.3 h1:saDtZ6Pbx/0u+bgYQ3q96pZgCzfhKXGPqt7kZ72aNNg=
 github.com/gorilla/websocket v1.5.3/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/konsorten/go-windows-terminal-sequences v1.0.1/go.mod h1:T0+1ngSBFLxvqU3pZ+m/2kptfBszLMUkC4ZK/EgS/cQ=
-github.com/mj41/s-w42-eu-raw v0.11.0 h1:wwSIyVHqQ/xkrOAu7Kv55Sf4v+u/5LUx/8WLIRljOKk=
-github.com/mj41/s-w42-eu-raw v0.11.0/go.mod h1:hsgSi9FEk7vSkVeJ68ebsmvU5i4BCqJii73TWEZUF+w=
+github.com/mj41/s-w42-eu-raw v0.22.2 h1:P1Wq+n/EaXfdECcXtKtK5ri9dzcyXc0O8B5U5FwmFdQ=
+github.com/mj41/s-w42-eu-raw v0.22.2/go.mod h1:Uf5Qf8an4c+txautfKfrIM53ltm1+KNBLOVgwmhfCN8=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/saltosystems/winrt-go v0.0.0-20260317170058-9c2fec580d96 h1:IXxzj3yjfDNXZJ35foY+RpFShqPsZZ81hhCckgfh5PI=
